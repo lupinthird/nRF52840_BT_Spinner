@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/chris/Documents/Cursor Projects/nRF52840_BT_Spinner/test-app/L3ControllerTest/Content/Fonts/Default.spritefont</SourceFile>
+  <SourceTime>2026-06-09T08:32:15.9079975-07:00</SourceTime>
+  <DestFile>C:/Users/chris/Documents/Cursor Projects/nRF52840_BT_Spinner/test-app/L3ControllerTest/Content/bin/DesktopGL/Content/Fonts/Default.xnb</DestFile>
+  <DestTime>2026-06-09T08:32:30.1846984-07:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2025-10-20T07:25:32-07:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2025-10-20T07:25:32-07:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

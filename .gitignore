@@ -1,0 +1,5 @@
+.pio
+.vscode/.browse*
+*.uf2
+*.hex
+*.zip
