@@ -11,6 +11,23 @@ static BLEDis bledis;
 static BLEBas blebas;
 static BLEHidGeneric blehid(1, 0, 0);
 
+#if defined(BOARD_FEATHER_NRF52832)
+
+// Feather LiPo divider on A7 (P0.31); values from Adafruit adc_vbat example.
+#define VBAT_MV_PER_LSB 0.73242188f
+#define VBAT_DIVIDER_COMP 1.403f
+
+static float read_battery_volts(void) {
+  analogReference(AR_INTERNAL_3_0);
+  analogReadResolution(12);
+  delay(1);
+  const float raw = analogRead(PIN_VBAT);
+  analogReference(AR_DEFAULT);
+  return raw * VBAT_DIVIDER_COMP * VBAT_MV_PER_LSB / 1000.0f;
+}
+
+#elif defined(BOARD_NICENANO)
+
 // nice!nano V2 routes LiPo to nRF52840 VDDH; SAADC channel VDDHDIV5 = VDDH / 5.
 static float read_battery_volts(void) {
   volatile int16_t raw_value = 0;
@@ -50,6 +67,8 @@ static float read_battery_volts(void) {
   const uint16_t raw = static_cast<uint16_t>(raw_value);
   return (static_cast<float>(raw) * 2.4f / 4095.0f * 5.0f);
 }
+
+#endif
 
 static uint8_t battery_percent_from_volts(float volts) {
   const float pct =

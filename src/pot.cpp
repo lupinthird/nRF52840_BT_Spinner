@@ -10,8 +10,10 @@
 #include <math.h>
 
 void pot_init(void) {
+#if defined(PIN_VCC_EN)
   pinMode(PIN_VCC_EN, OUTPUT);
   digitalWrite(PIN_VCC_EN, HIGH);
+#endif
 }
 
 int16_t pot_read_raw(void) {

@@ -71,7 +71,7 @@
 #define ENCODER_PIN_SCAN 0
 #endif
 
-// nice!nano V2: battery is read via nRF52840 VDDH/5 SAADC (not P0.04 — that is v1 only).
+// Battery: nice!nano V2 uses nRF52840 VDDH/5 SAADC; Feather uses A7 divider (see ble_gamepad.cpp).
 #define BATT_V_MIN 3.0f
 #define BATT_V_MAX 4.2f
 #define BATT_UPDATE_MS 15000

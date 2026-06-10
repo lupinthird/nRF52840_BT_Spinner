@@ -36,3 +36,4 @@ C:\Users\chris\Documents\Cursor Projects\nRF52840_BT_Spinner\test-app\L3Controll
 C:\Users\chris\Documents\Cursor Projects\nRF52840_BT_Spinner\test-app\L3ControllerTest\obj\Debug\net9.0-windows10.0.19041.0\ref\L3ControllerTest.dll
 C:\Users\chris\Documents\Cursor Projects\nRF52840_BT_Spinner\test-app\L3ControllerTest\bin\Debug\net9.0-windows10.0.19041.0\L3Controller.Input.dll
 C:\Users\chris\Documents\Cursor Projects\nRF52840_BT_Spinner\test-app\L3ControllerTest\bin\Debug\net9.0-windows10.0.19041.0\L3Controller.Input.pdb
+C:\Users\chris\Documents\Cursor Projects\nRF52840_BT_Spinner\test-app\L3ControllerTest\obj\Debug\net9.0-windows10.0.19041.0\L3ControllerTest.sourcelink.json

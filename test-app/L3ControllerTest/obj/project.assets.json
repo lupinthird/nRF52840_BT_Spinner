@@ -314,8 +314,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\chris\\AppData\\Local\\Temp\\cursor-sandbox-cache\\865c563012beaff05c2c114c9087d757\\nuget": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\chris\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -323,22 +322,16 @@
       "projectUniqueName": "C:\\Users\\chris\\Documents\\Cursor Projects\\nRF52840_BT_Spinner\\test-app\\L3ControllerTest\\L3ControllerTest.csproj",
       "projectName": "L3ControllerTest",
       "projectPath": "C:\\Users\\chris\\Documents\\Cursor Projects\\nRF52840_BT_Spinner\\test-app\\L3ControllerTest\\L3ControllerTest.csproj",
-      "packagesPath": "C:\\Users\\chris\\AppData\\Local\\Temp\\cursor-sandbox-cache\\865c563012beaff05c2c114c9087d757\\nuget",
+      "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\chris\\Documents\\Cursor Projects\\nRF52840_BT_Spinner\\test-app\\L3ControllerTest\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0-windows10.0.19041.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
