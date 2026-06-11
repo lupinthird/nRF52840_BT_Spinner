@@ -1,5 +1,29 @@
+# Build outputs
+bin/
+obj/
+
+# PlatformIO / firmware
 .pio
+
+# IDE / tooling
+.vs/
+.idea/
 .vscode/.browse*
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Firmware artifacts
 *.uf2
 *.hex
 *.zip
+
+# OS
+.DS_Store
+Thumbs.db
