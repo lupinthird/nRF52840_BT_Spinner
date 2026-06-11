@@ -45,7 +45,8 @@ Build the matching PlatformIO environment (`spinner_red`, `paddle_blue`, `combo_
 
 Each claimed slot shows:
 
-- Device name and profile (Spinner / Paddle / Combo / Gamepad)
+- Firmware **serial** (line 1) and parsed **display name** (line 2, color accent)
+- **Type** and **unit** from `L3DeviceInfo` (line 3)
 - Button states (3 buttons for L3 devices; full gamepad layout for Xbox-style pads)
 - **Spinner gauge** — circular dial with rotating nib (from HID **Z**)
 - **Paddle gauge** — dial with L/R stop ticks (from HID **Rz**)
@@ -77,6 +78,7 @@ test-app/
         └── ButtonGrid.cs
 
 ../L3ControllerInput/         # Reusable claim + mapping library (Cursor Projects root)
+    ├── L3DeviceInfo.cs
     ├── L3ControllerIdentity.cs
     ├── InputMapping.cs
     ├── ControllerManager.cs

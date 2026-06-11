@@ -22,21 +22,36 @@ public sealed class SlotPanel
         DrawHelper.DrawFilledRect(spriteBatch, pixel, new Rectangle(bounds.X, bounds.Y, bounds.Width, 1), new Color(70, 70, 70));
         DrawHelper.DrawFilledRect(spriteBatch, pixel, new Rectangle(bounds.X, bounds.Y, 1, bounds.Height), new Color(70, 70, 70));
 
-        var slotIndex = controller.SlotIndex ?? 0;
-        var profileLabel = controller.Profile switch
+        var info = ResolveDeviceInfo(controller);
+        var primaryLabel = info.IsValid
+            ? info.Serial
+            : controller.SlotIndex.HasValue
+                ? "Identifying..."
+                : "Waiting for input...";
+
+        var headerX = bounds.X + 12;
+        var headerY = bounds.Y + 8f;
+        FontText.Draw(spriteBatch, font, primaryLabel, new Vector2(headerX, headerY), Color.White);
+        headerY += font.LineSpacing + 4f;
+
+        if (info.IsValid)
         {
-            DeviceProfile.Spinner => "Spinner",
-            DeviceProfile.Paddle => "Paddle",
-            DeviceProfile.Combo => "Combo",
-            DeviceProfile.GenericGamepad => "Gamepad",
-            _ => "Controller"
-        };
-        var header = $"{controller.DisplayName} - Slot {slotIndex} ({profileLabel})";
-        FontText.Draw(spriteBatch, font, header, new Vector2(bounds.X + 12, bounds.Y + 8), Color.White);
+            var accentColor = L3ColorAccent.ForControllerColor(info.Color);
+            FontText.Draw(spriteBatch, font, info.DisplayName, new Vector2(headerX, headerY), accentColor);
+            headerY += font.LineSpacing + 4f;
+
+            var identityDetail = FormatIdentityDetail(info);
+            FontText.Draw(spriteBatch, font, identityDetail, new Vector2(headerX, headerY), Color.Gray);
+            headerY += font.LineSpacing + 10f;
+        }
+        else
+        {
+            headerY += 8f;
+        }
 
         var snapshot = controller.Current;
         var buttonCount = controller.Profile == DeviceProfile.GenericGamepad ? 14 : 3;
-        _buttonGrid.Draw(spriteBatch, font, pixel, new Vector2(bounds.X + 12, bounds.Y + 32), snapshot.Buttons, buttonCount);
+        _buttonGrid.Draw(spriteBatch, font, pixel, new Vector2(headerX, headerY), snapshot.Buttons, buttonCount);
 
         var showSpinner = controller.SpinnerSource != SpinnerSourceKind.None;
         var showPaddle = controller.PaddleSource != PaddleSourceKind.None;
@@ -107,5 +122,30 @@ public sealed class SlotPanel
         var fill = new Rectangle(bar.X, bar.Y, (int)(bar.Width * Math.Clamp(value, 0f, 1f)), bar.Height);
         DrawHelper.DrawFilledRect(spriteBatch, pixel, fill, Color.SteelBlue);
         FontText.Draw(spriteBatch, font, label, origin, Color.LightGray);
+    }
+
+    private static L3DeviceInfo ResolveDeviceInfo(TrackedController controller)
+    {
+        if (controller.TryGetDeviceInfo(out var info))
+            return info;
+
+        return L3DeviceInfo.FromSerial(controller.DeviceSerialNumber);
+    }
+
+    private static string FormatIdentityDetail(L3DeviceInfo info)
+    {
+        var typeLabel = info.Type switch
+        {
+            DeviceProfile.Spinner => "Spinner",
+            DeviceProfile.Paddle => "Paddle",
+            DeviceProfile.Combo => "Combo",
+            DeviceProfile.GenericGamepad => "Gamepad",
+            _ => "Unknown"
+        };
+
+        if (!string.IsNullOrWhiteSpace(info.Unit))
+            return $"Type: {typeLabel} - Unit: {info.Unit}";
+
+        return $"Type: {typeLabel}";
     }
 }
