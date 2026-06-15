@@ -4,17 +4,41 @@ Windowed MonoGame test application for verifying BLE HID controllers built from 
 
 ## Requirements
 
-- Windows 10 or later
 - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- **Windows 10+** or **Linux** (DesktopGL / SDL2)
+- [`L3ControllerInput`](../../L3ControllerInput) as a sibling directory of this repo (see project reference path in `L3ControllerTest.csproj`)
+
+### Linux-only build dependency
+
+MGCB needs FreeType to compile the bundled spritefont:
+
+```bash
+sudo apt install libfreetype6 libfreetype6-dev   # Debian / Ubuntu
+# or: sudo dnf install freetype-devel            # Fedora
+# or: sudo pacman -S freetype2                   # Arch
+```
+
+On Linux, BLE serial lookup requires **BlueZ** (`bluez` package) and a connected L3 controller.
 
 ## Build and run
 
 From this directory:
 
-```powershell
+```bash
 cd test-app
 dotnet tool restore
-dotnet run --project L3ControllerTest
+```
+
+**Linux:**
+
+```bash
+dotnet run --project L3ControllerTest -f net9.0
+```
+
+**Windows:**
+
+```powershell
+dotnet run --project L3ControllerTest -f net9.0-windows10.0.19041.0
 ```
 
 Press **Escape** to exit.
@@ -54,13 +78,14 @@ Each claimed slot shows:
 
 ## Input sources
 
-The app polls three Windows input APIs:
+Input is handled by [`L3ControllerInput`](../../L3ControllerInput). Platform behavior:
 
-1. **`RawGameController`** — primary path for L3 HID Z/Rz axes (indices 2 and 5)
-2. **MonoGame `Joystick`** — fallback when SDL exposes the same desktop axis layout
-3. **`Gamepad`** — Xbox-style pads (stick X/Y fallback for spinner/paddle widgets)
+| Platform | Primary path | Fallback |
+|---|---|---|
+| **Windows** | `RawGameController` (HID Z/Rz) | MonoGame `Joystick`, then `Gamepad` |
+| **Linux** | MonoGame `Joystick` (SDL2) | BLE GATT serial via BlueZ |
 
-L3 devices do **not** use left-stick X/Y mapping. Generic gamepads still fall back to stick axes when Z/Rz are unavailable.
+L3 devices do **not** use left-stick X/Y mapping. Generic gamepads on Windows still fall back to stick axes when Z/Rz are unavailable.
 
 ## Project layout
 
@@ -70,6 +95,10 @@ test-app/
 ├── .config/dotnet-tools.json
 └── L3ControllerTest/          # Visual test harness (UI only)
     ├── Game1.cs
+    ├── Content/
+    │   └── Fonts/
+    │       ├── Default.spritefont
+    │       └── VictorMono-Regular.ttf
     └── UI/
         ├── SlotPanel.cs
         ├── SpinnerGauge.cs
@@ -77,7 +106,7 @@ test-app/
         ├── StickIndicator.cs
         └── ButtonGrid.cs
 
-../L3ControllerInput/         # Reusable claim + mapping library (Cursor Projects root)
+../../L3ControllerInput/         # Reusable claim + mapping library (sibling repo)
     ├── L3DeviceInfo.cs
     ├── L3ControllerIdentity.cs
     ├── InputMapping.cs
@@ -86,10 +115,10 @@ test-app/
     └── TrackedController.cs
 ```
 
-Game projects reference `../L3ControllerInput/L3ControllerInput.csproj` — see that folder's README.
+Game projects reference `../../../L3ControllerInput/L3ControllerInput.csproj` — see that folder's README.
 
 ## Notes
 
-- Windows only (`Windows.Gaming.Input` WinRT APIs).
 - Slot assignments are not persisted across launches.
 - Spinner uses wrap-aware delta integration on Z axis changes (matches encoder position reporting in firmware).
+- The UI font (`VictorMono-Regular.ttf`) is bundled in `Content/Fonts/` so MGCB builds identically on Windows and Linux.

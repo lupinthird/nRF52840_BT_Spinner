@@ -1,0 +1,5 @@
+Victor Mono Regular (VictorMono-Regular.ttf) is bundled for MGCB font building.
+
+Copyright (c) 2019 Ruben Holthuijsen et al.
+Licensed under the SIL Open Font License, Version 1.1.
+https://github.com/rubjo/victor-mono

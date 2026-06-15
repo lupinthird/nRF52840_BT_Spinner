@@ -81,14 +81,15 @@ Custom descriptor in `include/hid_gamepad_descriptor.h`:
 
 No left stick, triggers, or D-pad/hat in the report.
 
-## Windows test app
+## Test app
 
-A MonoGame test harness lives in [`test-app/`](test-app/). It visualizes HID **Z** (spinner), **Rz** (paddle), and buttons for L3 Spinner / Paddle / Combo units, plus generic gamepads.
+A cross-platform MonoGame test harness lives in [`test-app/`](test-app/). It visualizes HID **Z** (spinner), **Rz** (paddle), and buttons for L3 Spinner / Paddle / Combo units, plus generic gamepads. See [`test-app/README.md`](test-app/README.md) for Linux dependencies (FreeType, BlueZ).
 
-```powershell
+```bash
 cd test-app
 dotnet tool restore
-dotnet run --project L3ControllerTest
+dotnet run --project L3ControllerTest -f net9.0              # Linux
+dotnet run --project L3ControllerTest -f net9.0-windows10.0.19041.0  # Windows
 ```
 
 ## Board definition credit
